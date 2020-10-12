@@ -71,7 +71,7 @@ setTimeout(function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // code
 
-    drawTree(tree15, 300, 100, 120);
+    drawTree(tree15, 300, 100, 100);
 
 
 }, delayInMilliseconds);
