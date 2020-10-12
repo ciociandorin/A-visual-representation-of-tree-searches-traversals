@@ -63,12 +63,15 @@ tree15 = new Tree(tree18, null, 15);
 //    / \       / \
 //  10  11   17    19
 //
-//drawTree(tree18, 300, 100, 100);
-//call draw tree on the root tree object
-drawTree(tree18, 300, 100, 100);
-var delayInMilliseconds = 3000; //1 second
+// search for 19
+
+var delayInMilliseconds = 1000; //1 second
 
 setTimeout(function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
     drawTree(tree15, 300, 100, 120);
+
+
 }, delayInMilliseconds);
