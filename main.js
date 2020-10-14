@@ -12,11 +12,17 @@ class Tree {
         this.Lefttree = Lt;
     }
 }
-function drawNode(x, y, r, text, ctx) {
+
+function drawNode(x, y, r, text, ctx, node) {
     ctx.beginPath();
     ctx.arc(x, y, r, 0, 2 * Math.PI);
+    if(node.active === true){
+        ctx.fillStyle = 'green';
+        ctx.fill();
+    }
     ctx.font = "20px Arial";
     ctx.strokeText(text, x - 10, y);
+
     ctx.stroke();
 }
 
@@ -29,11 +35,10 @@ function drawLine(fromx, fromy, tox, toy, ctx) {
 }
 
 function drawTree(rootTree, xstep, ystep, distance) {
+
 //draw node
     if (rootTree !== null) {
-
-        drawNode(xstep, ystep, 20, rootTree.Node, ctx);
-        console.log(rootTree.Node);
+        drawNode(xstep, ystep, 20, rootTree.Node, ctx, rootTree);
     }
 //draw left tree
     if (rootTree.Lefttree !== null) {
@@ -55,7 +60,7 @@ tree17 = new Tree(null, null, 17);
 tree19 = new Tree(null, null, 19);
 tree18 = new Tree(tree19, tree17, 18);
 //**
-tree15 = new Tree(tree18, null, 15);
+tree15 = new Tree(tree18,tree12, 15);
 
 //          15
 //        /    \
@@ -65,13 +70,48 @@ tree15 = new Tree(tree18, null, 15);
 //
 // search for 19
 
-var delayInMilliseconds = 1000; //1 second
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
 
-setTimeout(function() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // code
+var intervalID;
 
-    drawTree(tree15, 300, 100, 100);
+function bfs(node, s)
+{
+    let q = []
+    q.unshift(node);
+
+    while (q.length !== 0) {
+        sleep(1000);
+        let t = q.shift();
+
+        //console.log(t);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        t.active = true;
+        drawTree(tree15, 300, 100, 100);
+
+        if(t.Node == s) {
+            return;
+        }
 
 
-}, delayInMilliseconds);
+
+
+        t.active = false
+
+        if(t.Lefttree) {
+            q.unshift(t.Lefttree);
+        }
+
+        if(t.Righttree) {
+            q.unshift(t.Righttree);
+        }
+    }
+}
+
+bfs(tree15,17);
