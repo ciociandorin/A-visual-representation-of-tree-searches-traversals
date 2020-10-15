@@ -35,6 +35,7 @@ function drawLine(fromx, fromy, tox, toy, ctx) {
 }
 
 function drawTree(rootTree, xstep, ystep, distance) {
+
 //draw node
     if (rootTree !== null) {
         drawNode(xstep, ystep, 20, rootTree.Node, ctx, rootTree);
@@ -67,43 +68,69 @@ tree15 = new Tree(tree18,tree12, 15);
 //    / \       / \
 //  10  11   17    19
 
-function draw(){
-    setTimeout(function () {
-
-        drawTree(tree15, 300, 100, 100);
-    }, 5000);
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function bfs(node, s)
+
+async function bfs(node, s)
 {
     let q = []
     q.unshift(node);
-
     while (q.length !== 0) {
-
         let t = q.shift();
-
-        //console.log(t);
-
+        console.log(t);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         t.active = true;
         drawTree(tree15, 300, 100, 100);
-        //draw()
-
+        await  sleep(1000);
         if(t.Node === s) {
+            alert("Nod gasit");
+            console.log("Nodul s-a gasit");
             return;
         }
-
         t.active = false
-
         if(t.Lefttree) {
-            q.unshift(t.Lefttree);
+            q.push(t.Lefttree);
         }
-
         if(t.Righttree) {
-            q.unshift(t.Righttree);
+            q.push(t.Righttree);
         }
     }
+    console.log("Nodul nu s-a gasit");
+    alert("Nodul nu s-a gasit");
 }
 
-bfs(tree15,11);
+
+bfs(tree15,20)
+
+
+async function dfs(node, s)
+{
+    let q = []
+    q.unshift(node);
+    while (q.length !== 0) {
+        let t = q.shift();
+        console.log(t);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        t.active = true;
+        drawTree(tree15, 300, 100, 100);
+        await  sleep(1000);
+        if(t.Node === s) {
+            alert("Nod gasit");
+            console.log("Nodul s-a gasit");
+            return;
+        }
+        t.active = false
+        if(t.Lefttree) {
+            q.unshift(t.Righttree);
+        }
+        if(t.Righttree) {
+            q.unshift(t.Lefttree);
+        }
+    }
+    console.log("Nodul nu s-a gasit");
+    alert("Nodul nu s-a gasit");
+}
+
+//dfs(tree15,19);
