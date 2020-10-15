@@ -35,7 +35,6 @@ function drawLine(fromx, fromy, tox, toy, ctx) {
 }
 
 function drawTree(rootTree, xstep, ystep, distance) {
-
 //draw node
     if (rootTree !== null) {
         drawNode(xstep, ystep, 20, rootTree.Node, ctx, rootTree);
@@ -67,18 +66,13 @@ tree15 = new Tree(tree18,tree12, 15);
 //     12       18
 //    / \       / \
 //  10  11   17    19
-//
-// search for 19
 
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-        currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
+function draw(){
+    setTimeout(function () {
+
+        drawTree(tree15, 300, 100, 100);
+    }, 5000);
 }
-
-var intervalID;
 
 function bfs(node, s)
 {
@@ -86,7 +80,7 @@ function bfs(node, s)
     q.unshift(node);
 
     while (q.length !== 0) {
-        sleep(1000);
+
         let t = q.shift();
 
         //console.log(t);
@@ -94,13 +88,11 @@ function bfs(node, s)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         t.active = true;
         drawTree(tree15, 300, 100, 100);
+        //draw()
 
-        if(t.Node == s) {
+        if(t.Node === s) {
             return;
         }
-
-
-
 
         t.active = false
 
@@ -114,4 +106,4 @@ function bfs(node, s)
     }
 }
 
-bfs(tree15,17);
+bfs(tree15,11);
