@@ -12,6 +12,14 @@ class Tree {
         this.Lefttree = Lt;
     }
 }
+class TreeCost {
+    constructor(Rt, Lt, value, cost) {
+        this.Node = value;
+        this.Righttree = Rt;
+        this.Lefttree = Lt;
+        this.Cost = cost;
+    }
+}
 
 function drawNode(x, y, r, text, ctx, node) {
     ctx.beginPath();
@@ -155,6 +163,8 @@ async  function ids(node, s){
 
     }
 }
-ids(tree15,18)
+//ids(tree15,18)
 
 // 5. Uniform cost search
+// 6. Greedy best search
+// 7. A* Search
