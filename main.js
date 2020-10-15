@@ -130,33 +130,31 @@ async function rdls(node, s, depth, limit)
 
     if(!node || depth > limit)
         return;
-    if(node === s){
-        console.log("Nodul s-a gasit");
-        alert("Nodul s-a gasit");
-    }
-    //console.log(node);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     node.active = true;
     drawTree(tree15, 300, 100, 100);
     await  sleep(1000);
-    node.active = false
-    console.log(depth);
+    node.active = false;
+    //console.log(depth);
+    if(node.Node === s){
+        console.log("Nodul s-a gasit");
+        alert("Nodul s-a gasit");
+        return;
+    }
     if(node.Lefttree)
         await rdls(node.Lefttree, s, depth+1, limit)
     if(node.Righttree)
         await rdls(node.Righttree, s, depth+1, limit)
 }
-//rdls(tree15, 18, 0,2)
+//rdls(tree15, 18, 0 , 2)
 
 // 4. Iterative deepening search
 async  function ids(node, s){
     for(let i=0;i<=2;i++){
-        await  sleep(1000);
-        console.log(i);
-        rdls(node, s, 0, i)
+        await rdls(node, s, 0, i)
 
     }
 }
-ids(tree15,19)
+ids(tree15,18)
 
 // 5. Uniform cost search
