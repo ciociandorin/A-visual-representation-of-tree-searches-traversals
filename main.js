@@ -102,7 +102,7 @@ function treeCostA(){
     tree18 = new TreeCostA(tree19, tree17, 18, 10,6);
     tree15 = new TreeCostA(tree18,tree12, 15, 1,7);
 }
-//treeCostA();
+treeCostA();
 
 // functie de asteptare
 function sleep(ms) {
@@ -264,9 +264,8 @@ async function gbs(node, s)
 // 7. A* Search
 async function as(node, s)
 {
-    let queue = [[node, node.Cost]];
+    let queue = [[node, node.Cost, node.Euristica]];
     while (queue.length !== 0) {
-        console.log(queue);
         queue.sort( function( a , b){
             if(a[1] > b[1]) return 1;
             if(a[1] < b[1]) return -1;
@@ -284,9 +283,9 @@ async function as(node, s)
             console.log("Nodul s-a gasit");
             return;}
         if (n[0].Lefttree && n[0].Righttree) {
-            queue.push([n[0].Lefttree, n[0].Lefttree.Cost+n[1]]);
-            queue.push([n[0].Righttree, n[0].Righttree.Cost+n[1]]);
+            queue.push([n[0].Lefttree, n[0].Lefttree.Cost+n[1]+n[0].Euristica]-n[2], n[0].Euristica);
+            queue.push([n[0].Righttree, n[0].Righttree.Cost+n[1]+n[0].Euristica]-n[2], n[0].Euristica);
         }
     }
 }
-//as(tree15, 20)
+as(tree15, 20)
