@@ -207,6 +207,63 @@ async function ucs(node, s)
         }
     }
 }
-ucs(tree15, 20)
+//ucs(tree15, 20);
+
 // 6. Greedy best search
+async function gbs(node, s)
+{
+    let queue = [[node, node.Cost]];
+    while (queue.length !== 0) {
+        queue.sort( function( a , b){
+            if(a[1] > b[1]) return 1;
+            if(a[1] < b[1]) return -1;
+            return 0;
+        });
+        let n = queue.shift()
+        console.log(n);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        n[0].active = true;
+        drawTree(tree15, 300, 100, 100);
+        await  sleep(1000);
+        n[0].active = false;
+        if (n[0].Node === s)
+        {alert("Nod gasit");
+            console.log("Nodul s-a gasit");
+            return;}
+        if (n[0].Lefttree && n[0].Righttree) {
+            queue.unshift([n[0].Lefttree, n[0].Lefttree.Cost]);
+            queue.unshift([n[0].Righttree, n[0].Righttree.Cost]);
+        }
+    }
+}
+gbs(tree15, 20);
+
 // 7. A* Search
+async function as(node, s)
+{
+    let queue = [[node, node.Cost]];
+    while (queue.length !== 0) {
+        console.log(queue);
+        queue.sort( function( a , b){
+            if(a[1] > b[1]) return 1;
+            if(a[1] < b[1]) return -1;
+            return 0;
+        });
+        let n = queue.shift()
+        console.log(n);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        n[0].active = true;
+        drawTree(tree15, 300, 100, 100);
+        await  sleep(1000);
+        n[0].active = false;
+        if (n[0].Node === s)
+        {alert("Nod gasit");
+            console.log("Nodul s-a gasit");
+            return;}
+        if (n[0].Lefttree && n[0].Righttree) {
+            queue.unshift([n[0].Lefttree, n[0].Lefttree.Cost+n[1]]);
+            queue.unshift([n[0].Righttree, n[0].Righttree.Cost+n[1]]);
+        }
+    }
+}
+//as(tree15, 20)
