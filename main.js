@@ -4,6 +4,7 @@ const width = 1200;
 const height = 1200;
 ctx.width = width;
 ctx.height = height;
+
 // clasa pentru creare arbore/arbore cu cost
 class Tree {
     constructor(Rt, Lt, value) {
@@ -20,6 +21,16 @@ class TreeCost {
         this.Cost = cost;
     }
 }
+class TreeCostA {
+    constructor(Rt, Lt, value, cost, euristica) {
+        this.Node = value;
+        this.Righttree = Rt;
+        this.Lefttree = Lt;
+        this.Cost = cost;
+        this.Euristica = euristica;
+    }
+}
+
 //desenare
 function drawNode(x, y, r, text, ctx, node) {
     ctx.beginPath();
@@ -80,7 +91,19 @@ function treeCost(){
     tree18 = new TreeCost(tree19, tree17, 18, 10);
     tree15 = new TreeCost(tree18,tree12, 15, 1);
 }
-treeCost();
+//treeCost();
+
+function treeCostA(){
+    tree10 = new TreeCostA(null, null, 16, 9,1);
+    tree11 = new TreeCostA(null, null, 11, 5,2);
+    tree12 = new TreeCostA(tree11, tree10, 12, 10,3);
+    tree17 = new TreeCostA(null, null, 17, 7,4);
+    tree19 = new TreeCostA(null, null, 19, 8,5);
+    tree18 = new TreeCostA(tree19, tree17, 18, 10,6);
+    tree15 = new TreeCostA(tree18,tree12, 15, 1,7);
+}
+//treeCostA();
+
 // functie de asteptare
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
