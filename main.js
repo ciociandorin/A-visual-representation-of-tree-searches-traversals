@@ -4,7 +4,7 @@ const width = 1200;
 const height = 1200;
 ctx.width = width;
 ctx.height = height;
-
+// clasa pentru creare arbore/arbore cu cost
 class Tree {
     constructor(Rt, Lt, value) {
         this.Node = value;
@@ -20,7 +20,7 @@ class TreeCost {
         this.Cost = cost;
     }
 }
-
+//desenare
 function drawNode(x, y, r, text, ctx, node) {
     ctx.beginPath();
     ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -59,15 +59,29 @@ function drawTree(rootTree, xstep, ystep, distance) {
         drawTree(rootTree.Righttree, xstep + distance, ystep + 100, distance / 2 + 20);
     }
 }
+//creare arbore
+function tree(){
+    tree10 = new Tree(null, null, 16);
+    tree11 = new Tree(null, null, 11);
+    tree12 = new Tree(tree11, tree10, 12);
+    tree17 = new Tree(null, null, 17);
+    tree19 = new Tree(null, null, 19);
+    tree18 = new Tree(tree19, tree17, 18);
+    tree15 = new Tree(tree18,tree12, 15);
+}
+tree();
 
-tree10 = new Tree(null, null, 16);
-tree11 = new Tree(null, null, 11);
-tree12 = new Tree(tree11, tree10, 12);
-tree17 = new Tree(null, null, 17);
-tree19 = new Tree(null, null, 19);
-tree18 = new Tree(tree19, tree17, 18);
-tree15 = new Tree(tree18,tree12, 15);
-
+function treeCost(){
+    tree10 = new TreeCost(null, null, 16, 10);
+    tree11 = new TreeCost(null, null, 11, 20);
+    tree12 = new TreeCost(tree11, tree10, 12, 14);
+    tree17 = new TreeCost(null, null, 17, 12);
+    tree19 = new TreeCost(null, null, 19, 14);
+    tree18 = new TreeCost(tree19, tree17, 18, 21);
+    tree15 = new TreeCost(tree18,tree12, 15, 0);
+}
+treeCost();
+// functie de asteptare
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -100,7 +114,7 @@ async function bfs(node, s)
     console.log("Nodul nu s-a gasit");
     alert("Nodul nu s-a gasit");
 }
-//bfs(tree15,20)
+bfs(tree15,20)
 
 // 2. Depth first search
 async function dfs(node, s)
@@ -154,7 +168,7 @@ async function rdls(node, s, depth, limit)
     if(node.Righttree)
         await rdls(node.Righttree, s, depth+1, limit)
 }
-//rdls(tree15, 18, 0 , 2)
+//rdls(tree15, 18, 0 , 2);
 
 // 4. Iterative deepening search
 async  function ids(node, s){
@@ -163,7 +177,7 @@ async  function ids(node, s){
 
     }
 }
-//ids(tree15,18)
+//ids(tree15,18);
 
 // 5. Uniform cost search
 // 6. Greedy best search
