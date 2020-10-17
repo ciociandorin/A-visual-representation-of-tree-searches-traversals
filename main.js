@@ -202,8 +202,8 @@ async function ucs(node, s)
             console.log("Nodul s-a gasit");
             return;}
         if (n[0].Lefttree && n[0].Righttree) {
-            queue.unshift([n[0].Lefttree, n[0].Lefttree.Cost+n[1]]);
-            queue.unshift([n[0].Righttree, n[0].Righttree.Cost+n[1]]);
+            queue.push([n[0].Lefttree, n[0].Lefttree.Cost+n[1]]);
+            queue.push([n[0].Righttree, n[0].Righttree.Cost+n[1]]);
         }
     }
 }
@@ -231,12 +231,12 @@ async function gbs(node, s)
             console.log("Nodul s-a gasit");
             return;}
         if (n[0].Lefttree && n[0].Righttree) {
-            queue.unshift([n[0].Lefttree, n[0].Lefttree.Cost]);
-            queue.unshift([n[0].Righttree, n[0].Righttree.Cost]);
+            queue.push([n[0].Lefttree, n[0].Lefttree.Cost]);
+            queue.push([n[0].Righttree, n[0].Righttree.Cost]);
         }
     }
 }
-gbs(tree15, 16);
+//gbs(tree15, 16);
 
 // 7. A* Search
 async function as(node, s)
@@ -261,8 +261,8 @@ async function as(node, s)
             console.log("Nodul s-a gasit");
             return;}
         if (n[0].Lefttree && n[0].Righttree) {
-            queue.unshift([n[0].Lefttree, n[0].Lefttree.Cost+n[1]]);
-            queue.unshift([n[0].Righttree, n[0].Righttree.Cost+n[1]]);
+            queue.push([n[0].Lefttree, n[0].Lefttree.Cost+n[1]]);
+            queue.push([n[0].Righttree, n[0].Righttree.Cost+n[1]]);
         }
     }
 }
