@@ -102,7 +102,7 @@ function treeCostA(){
     tree18 = new TreeCostA(tree19, tree17, 18, 10,6);
     tree15 = new TreeCostA(tree18,tree12, 15, 1,7);
 }
-treeCostA();
+//treeCostA();
 
 // functie de asteptare
 function sleep(ms) {
@@ -137,7 +137,7 @@ async function bfs(node, s)
     console.log("Nodul nu s-a gasit");
     alert("Nodul nu s-a gasit");
 }
-//bfs(tree15,20)
+// tree();bfs(tree15,20)
 
 // 2. Depth first search
 async function dfs(node, s)
@@ -167,7 +167,7 @@ async function dfs(node, s)
     console.log("Nodul nu s-a gasit");
     alert("Nodul nu s-a gasit");
 }
-//dfs(tree15,19);
+// tree(); dfs(tree15,19);
 
 // 3. Depth limited search
 async function rdls(node, s, depth, limit)
@@ -191,16 +191,17 @@ async function rdls(node, s, depth, limit)
     if(node.Righttree)
         await rdls(node.Righttree, s, depth+1, limit)
 }
-//rdls(tree15, 18, 0 , 2);
+// tree(); rdls(tree15, 18, 0 , 2);
 
 // 4. Iterative deepening search
-async  function ids(node, s){
+async  function ids(node, s)
+{
     for(let i=0;i<=2;i++){
         await rdls(node, s, 0, i)
 
     }
 }
-//ids(tree15,18);
+// tree(); ids(tree15,18);
 
 // 5. Uniform cost search
 async function ucs(node, s)
@@ -230,7 +231,7 @@ async function ucs(node, s)
         }
     }
 }
-//ucs(tree15, 20);
+// treeCost(); ucs(tree15, 20);
 
 // 6. Greedy best search
 async function gbs(node, s)
@@ -259,7 +260,7 @@ async function gbs(node, s)
         }
     }
 }
-//gbs(tree15, 16);
+// treeCost(); gbs(tree15, 16);
 
 // 7. A* Search
 async function as(node, s)
@@ -288,4 +289,41 @@ async function as(node, s)
         }
     }
 }
-as(tree15, 20)
+//treeCostA(); as(tree15, 20);
+
+// 8. Iterative deepening A* search
+async function ldas(node, s, depth, limit)
+{
+
+    if(!node || depth > limit)
+        return;
+    let queue = [[node, node.Cost, node.Euristica]];
+    while (queue.length !== 0) {
+        queue.sort(function (a, b) {
+            if (a[1] + a[2] > b[1] + b[2]) return 1;
+            if (a[1] + a[2] < b[1] + b[2]) return -1;
+            return 0;
+        });
+        let n = queue.shift()
+        console.log(n);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        n[0].active = true;
+        drawTree(tree15, 300, 100, 100);
+        await sleep(1000);
+        n[0].active = false;
+        if (n[0].Node === s) {
+            alert("Nod gasit");
+            console.log("Nodul s-a gasit");
+            return;
+        }
+        if (n[0].Lefttree && n[0].Righttree) {
+            queue.push([n[0].Lefttree, n[0].Lefttree.Cost + n[1], n[0].Euristica]);
+            queue.push([n[0].Righttree, n[0].Righttree.Cost + n[1], n[0].Euristica]);
+        }
+        if(node.Lefttree)
+            await ldas(node.Lefttree, s, depth+1, limit)
+        if(node.Righttree)
+            await ldas(node.Righttree, s, depth+1, limit)
+    }
+}
+treeCostA(); ldas(tree15, 19, 0 , 2)
