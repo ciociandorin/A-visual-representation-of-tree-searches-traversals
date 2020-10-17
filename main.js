@@ -72,12 +72,12 @@ function tree(){
 //tree();
 
 function treeCost(){
-    tree10 = new TreeCost(null, null, 16, 4);
+    tree10 = new TreeCost(null, null, 16, 9);
     tree11 = new TreeCost(null, null, 11, 5);
-    tree12 = new TreeCost(tree11, tree10, 12, 5);
+    tree12 = new TreeCost(tree11, tree10, 12, 10);
     tree17 = new TreeCost(null, null, 17, 7);
     tree19 = new TreeCost(null, null, 19, 8);
-    tree18 = new TreeCost(tree19, tree17, 18, 2);
+    tree18 = new TreeCost(tree19, tree17, 18, 10);
     tree15 = new TreeCost(tree18,tree12, 15, 1);
 }
 treeCost();
@@ -184,8 +184,14 @@ async function ucs(node, s)
 {
     let queue = [[node, node.Cost]];
     while (queue.length !== 0) {
+        console.log(queue);
+        queue.sort( function( a , b){
+            if(a[1] > b[1]) return 1;
+            if(a[1] < b[1]) return -1;
+            return 0;
+        });
         let n = queue.shift()
-        console.log(n[1]);
+        console.log(n);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         n[0].active = true;
         drawTree(tree15, 300, 100, 100);
@@ -196,16 +202,11 @@ async function ucs(node, s)
             console.log("Nodul s-a gasit");
             return;}
         if (n[0].Lefttree && n[0].Righttree) {
-            queue.unshift([n[0].Lefttree, n[0].Cost+n[1]]);
-            queue.unshift([n[0].Righttree, n[0].Cost+n[1]]);
-            queue.sort( function( a , b){
-                if(a > b) return 1;
-                if(a < b) return -1;
-                return 0;
-            });
+            queue.unshift([n[0].Lefttree, n[0].Lefttree.Cost+n[1]]);
+            queue.unshift([n[0].Righttree, n[0].Righttree.Cost+n[1]]);
         }
     }
 }
-ucs(tree15, 16)
+ucs(tree15, 20)
 // 6. Greedy best search
 // 7. A* Search
