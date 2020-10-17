@@ -267,8 +267,8 @@ async function as(node, s)
     let queue = [[node, node.Cost, node.Euristica]];
     while (queue.length !== 0) {
         queue.sort( function( a , b){
-            if(a[1] > b[1]) return 1;
-            if(a[1] < b[1]) return -1;
+            if(a[1]+a[2] > b[1]+b[2]) return 1;
+            if(a[1]+a[2] < b[1]+b[2]) return -1;
             return 0;
         });
         let n = queue.shift()
@@ -283,8 +283,8 @@ async function as(node, s)
             console.log("Nodul s-a gasit");
             return;}
         if (n[0].Lefttree && n[0].Righttree) {
-            queue.push([n[0].Lefttree, n[0].Lefttree.Cost+n[1]+n[0].Euristica]-n[2], n[0].Euristica);
-            queue.push([n[0].Righttree, n[0].Righttree.Cost+n[1]+n[0].Euristica]-n[2], n[0].Euristica);
+            queue.push([n[0].Lefttree, n[0].Lefttree.Cost+n[1], n[0].Euristica]);
+            queue.push([n[0].Righttree, n[0].Righttree.Cost+n[1], n[0].Euristica]);
         }
     }
 }
