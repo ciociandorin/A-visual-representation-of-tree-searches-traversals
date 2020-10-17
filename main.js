@@ -236,7 +236,7 @@ async function gbs(node, s)
         }
     }
 }
-gbs(tree15, 20);
+gbs(tree15, 16);
 
 // 7. A* Search
 async function as(node, s)
