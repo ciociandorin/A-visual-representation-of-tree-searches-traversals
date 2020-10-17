@@ -69,16 +69,16 @@ function tree(){
     tree18 = new Tree(tree19, tree17, 18);
     tree15 = new Tree(tree18,tree12, 15);
 }
-tree();
+//tree();
 
 function treeCost(){
-    tree10 = new TreeCost(null, null, 16, 10);
-    tree11 = new TreeCost(null, null, 11, 20);
-    tree12 = new TreeCost(tree11, tree10, 12, 14);
-    tree17 = new TreeCost(null, null, 17, 12);
-    tree19 = new TreeCost(null, null, 19, 14);
-    tree18 = new TreeCost(tree19, tree17, 18, 21);
-    tree15 = new TreeCost(tree18,tree12, 15, 0);
+    tree10 = new TreeCost(null, null, 16, 4);
+    tree11 = new TreeCost(null, null, 11, 5);
+    tree12 = new TreeCost(tree11, tree10, 12, 5);
+    tree17 = new TreeCost(null, null, 17, 7);
+    tree19 = new TreeCost(null, null, 19, 8);
+    tree18 = new TreeCost(tree19, tree17, 18, 2);
+    tree15 = new TreeCost(tree18,tree12, 15, 1);
 }
 treeCost();
 // functie de asteptare
@@ -114,7 +114,7 @@ async function bfs(node, s)
     console.log("Nodul nu s-a gasit");
     alert("Nodul nu s-a gasit");
 }
-bfs(tree15,20)
+//bfs(tree15,20)
 
 // 2. Depth first search
 async function dfs(node, s)
@@ -180,5 +180,32 @@ async  function ids(node, s){
 //ids(tree15,18);
 
 // 5. Uniform cost search
+async function ucs(node, s)
+{
+    let queue = [[node, node.Cost]];
+    while (queue.length !== 0) {
+        let n = queue.shift()
+        console.log(n[1]);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        n[0].active = true;
+        drawTree(tree15, 300, 100, 100);
+        await  sleep(1000);
+        n[0].active = false;
+        if (n[0].Node === s)
+            {alert("Nod gasit");
+            console.log("Nodul s-a gasit");
+            return;}
+        if (n[0].Lefttree && n[0].Righttree) {
+            queue.unshift([n[0].Lefttree, n[0].Cost+n[1]]);
+            queue.unshift([n[0].Righttree, n[0].Cost+n[1]]);
+            queue.sort( function( a , b){
+                if(a > b) return 1;
+                if(a < b) return -1;
+                return 0;
+            });
+        }
+    }
+}
+ucs(tree15, 16)
 // 6. Greedy best search
 // 7. A* Search
