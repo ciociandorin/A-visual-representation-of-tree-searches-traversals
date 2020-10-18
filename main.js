@@ -44,7 +44,6 @@ function drawNode(x, y, r, text, ctx, node) {
 
     ctx.stroke();
 }
-
 function drawLine(fromx, fromy, tox, toy, ctx) {
     ctx.beginPath();
     ctx.moveTo(fromx, fromy);
@@ -52,7 +51,6 @@ function drawLine(fromx, fromy, tox, toy, ctx) {
     ctx.closePath();
     ctx.stroke();
 }
-
 function drawTree(rootTree, xstep, ystep, distance) {
 
 //draw node
@@ -70,6 +68,7 @@ function drawTree(rootTree, xstep, ystep, distance) {
         drawTree(rootTree.Righttree, xstep + distance, ystep + 100, distance / 2 + 20);
     }
 }
+
 //creare arbore
 function tree(){
     tree10 = new Tree(null, null, 16);
@@ -80,8 +79,6 @@ function tree(){
     tree18 = new Tree(tree19, tree17, 18);
     tree15 = new Tree(tree18,tree12, 15);
 }
-//tree();
-
 function treeCost(){
     tree10 = new TreeCost(null, null, 16, 9);
     tree11 = new TreeCost(null, null, 11, 5);
@@ -91,8 +88,6 @@ function treeCost(){
     tree18 = new TreeCost(tree19, tree17, 18, 10);
     tree15 = new TreeCost(tree18,tree12, 15, 1);
 }
-//treeCost();
-
 function treeCostA(){
     tree10 = new TreeCostA(null, null, 16, 9,1);
     tree11 = new TreeCostA(null, null, 11, 5,2);
@@ -102,7 +97,6 @@ function treeCostA(){
     tree18 = new TreeCostA(tree19, tree17, 18, 10,6);
     tree15 = new TreeCostA(tree18,tree12, 15, 1,7);
 }
-//treeCostA();
 
 // functie de asteptare
 function sleep(ms) {
